@@ -1,0 +1,16 @@
+apiVersion: sources.knative.dev/v1beta1
+kind: KafkaSource
+metadata:
+  name: bitcoin-source
+spec:
+  consumerGroup: knative-group
+  initialOffset: earliest
+  bootstrapServers:
+  - my-cluster-kafka-bootstrap.knative-samples.svc.cluster.local:9092
+  topics:
+  - bitcoin
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: quarkers-mining-service
